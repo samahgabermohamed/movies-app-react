@@ -5,7 +5,7 @@ import { SetFavMovies,delFavMovies } from '../store/Actions/SetMovies';
 
 
 export default function MovieCard(props) {
-  const favmovies = useSelector(state => state);
+  const favmovies = useSelector(state => state.favourite);
   const  [isfav,setisfav] = useState()
   useEffect(() => {
     for(let movie of favmovies){
@@ -35,14 +35,14 @@ export default function MovieCard(props) {
     props.changed(false)
   }
   return  <div className="card col-md-3 m-3 col-sm-12">
-            <img className="card-img-top" src={`https://image.tmdb.org/t/p/w500/${props.poster_path}`} alt="Card image cap"/> 
+            <img className="card-img-top" src={`https://image.tmdb.org/t/p/w500/${props.poster_path}`} alt="Card image cap" />
             <div className="card-body">
               <h5 className="card-title">{props.title}</h5>
               <p className="card-text" > {props.vote_average}</p>
               <div>
               <Link to={`/movie-details/${props.id}`} className="btn btn-primary m-2" > Details </Link>
               
-              <i className="fas  fa-star fa-2x " onClickCapture={ isfav ? delfromfav : addtofav} style={{color: isfav? "yellow" : "black"}} ></i>
+              <i class="fas  fa-star fa-2x " onClickCapture={ isfav ? delfromfav : addtofav} style={{color: isfav? "yellow" : "black"}} ></i>
               </div>
               
             </div>

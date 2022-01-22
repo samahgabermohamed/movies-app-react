@@ -1,8 +1,11 @@
-import { Pagination } from '@mui/material';
+import { dark } from '@mui/material/styles/createPalette';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MovieCard from '../components/MovieCard';
 import MyPagination from '../components/MyPagination';
+import { SetMovies } from '../store/Actions/SetMovies';
 
 export default function MoviesList() {
    const [movies , setmovies] = useState([])
@@ -10,27 +13,25 @@ export default function MoviesList() {
    const [searchmode , setsearchmode] = useState(false);
    const [change , setchange] = useState([])
    const [notfount , setnotfound] = useState()
-
-   
+   let dispatch = useDispatch()
+  
+   let mymovies = useSelector((state) => state.allmovies.list)
+  
    useEffect(() => {
-    getmoviebypage();
+    dispatch(SetMovies(1))
    // getmovies();
    }, []);
    useEffect(() => {
-   console.log(change)
    }, [movies,change]);
 
    function ischange(e){
-     console.log("samah")
+     console.log("ahmed")
     setchange([...change , e])
    }
-  function getmoviebypage(pageno){
+  function getmoviebypage(pgno){
     setsearchmode(false)
-    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=672cdfe6607c2166acf2affdb81ae188&page=${pageno}`).then(
-        res => {
-          setmovies(res.data.results)
-        }
-    )
+    dispatch(SetMovies(pgno))
+   
   }
   function backtoall(e){
     e.preventDefault();
@@ -56,23 +57,16 @@ export default function MoviesList() {
   )
   console.log(e)
   }
-  /*function getmovies(){
-    axios.get('https://api.themoviedb.org/3/movie/popular?api_key=672cdfe6607c2166acf2affdb81ae188').then(
-        res => {
-          setmovies(res.data.results)
-        }
-    )
-      }
-    */
+ 
   return (
       <>   
-     <h1 className='m-3'> Movies List</h1>
+     <h1 className='m-3'style={{textAlign: "center" }}> Movies List</h1>
     
     <div className="container">
       
-<div classMame="input-group mb-3">
+<div class="input-group mb-3">
   <form className='col-10' onSubmit={(e)=> {search(e)}}>
-     <input type="text" value={Mname} name='Mname' onChangeCapture={(e)=> getname(e)} className="form-control" placeholder="Movie name ..." 
+     <input type="text" value={Mname} name='Mname' onChangeCapture={(e)=> getname(e)} class="form-control" placeholder="Movie name ..." 
      aria-label="Recipient's username" aria-describedby="basic-addon2"/>
       <div className="input-group-append">
     <button className="btn btn-outline-secondary mt-2"  type="submit">Search</button>
@@ -83,7 +77,7 @@ export default function MoviesList() {
       <div className='row'>
     
      {   
-         movies.map( movie => {      
+         mymovies.map( movie => {      
            return ( <>
               <MovieCard  changed={(e)=> ischange(e)} isfav={false}  key={movie.id} id={movie.id} title={movie.title}  poster_path={movie.poster_path} vote_average={movie.vote_average}/>
               </>

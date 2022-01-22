@@ -134,7 +134,7 @@ return (<>
     <input type="password"className={errregisterForm.confpassword != null? "border border-danger form-control" : "form-control"}  onChange={(e)=> update(e)} name="confpassword" />
     <div  class="form-text"><div  class="form-text text-danger">{errregisterForm.confpassword}</div></div>
   </div>
-  <button type="submit" class="btn btn-primary" disabled={errregisterForm.name || errregisterForm.confpassword || errregisterForm.password 
+  <button type="submit" class="btn btn-dark" disabled={errregisterForm.name || errregisterForm.confpassword || errregisterForm.password 
     || errregisterForm.email|| errregisterForm.username }> Submit</button>
 </form>
 

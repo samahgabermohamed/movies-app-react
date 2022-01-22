@@ -104,7 +104,7 @@ function showpass(e){
             <input className='mt-2 m-2' type={'checkbox'}  onChange={ (e)=> showpass(e)} />  
             <label htmlFor="password"> show password </label>
           </div>
-          <button type='submit' className='btn btn-primary m-2 mt-3' disabled={errors.email && errors.password == null ? true : false} > Login </button>
+          <button type='submit' className='btn btn-dark m-2 mt-3' disabled={errors.email && errors.password == null ? true : false} > Login </button>
              <Link className='btn btn-outline-dark mt-3 m-2 ' to={'/register'}>  New user </Link>
         </form>
       </div>
